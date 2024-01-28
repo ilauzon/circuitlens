@@ -1,7 +1,9 @@
 package com.circuitlens.app;
 
 public abstract class Gate {
-    protected Gate[] inputs, outputs;
+    protected Gate[] inputs;
+
+    public static final int MAX_INPUTS = 31;
 
     protected int maxInputs;
 
@@ -28,6 +30,7 @@ public abstract class Gate {
 
             boolean[] bits = new boolean[bitChars.length];
 
+            // convert chars 1 and 0 to true and false
             for (int j = 0; j < bitChars.length; j++) {
                 bits[j] = bitChars[bitChars.length - 1 - j] == '1';
             }
@@ -65,26 +68,13 @@ public abstract class Gate {
         return temp.length - 1;
     }
 
-    public int addOutput(Gate gate) {
-        Gate[] temp = new Gate[inputs.length + 1];
-        System.arraycopy(inputs, 0, temp, 0, inputs.length);
-        temp[temp.length - 1] = gate;
-        inputs = temp;
-
-        calculateTruthTable();
-
-        return temp.length - 1;
-    }
-
     public void removeInput(int pos) {
         System.arraycopy(inputs, pos + 1, inputs, pos, inputs.length - pos);
 
         calculateTruthTable();
     }
 
-    public void removeOutput(int pos) {
-        System.arraycopy(outputs, pos + 1, outputs, pos, outputs.length - pos);
-
-        calculateTruthTable();
+    public Gate[] getInputs() {
+        return inputs;
     }
 }

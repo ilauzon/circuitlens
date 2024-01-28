@@ -3,7 +3,7 @@ package com.circuitlens.app;
 public class And extends Gate {
 
     public And() {
-        maxInputs = (int) Math.pow(2, 16);
+        maxInputs = MAX_INPUTS;
     }
 
     protected boolean calculateBool(boolean[] bits) {
