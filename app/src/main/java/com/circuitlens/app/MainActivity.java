@@ -12,21 +12,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Gate not = new Not();
-        not.addInput(new Constant(true));
-        Gate and = new And();
-        and.addInput(new Constant(true));
-        and.addInput(new Constant(true));
-        and.addInput(new Constant(true));
-        Gate or = new Or();
-        or.addInput(new Constant(true));
-        or.addInput(new Constant(true));
+        Gate A = new Variable("A");
+        Gate B = new Variable("B");
+        Gate g0 = new And(A, B);
+        Gate g1 = new Or(g0, g0);
+        Gate g2 = new Not(g1);
+        Gate out = new OutputReader(g2);
 
-        printTruthTable(not);
-        System.out.println("\n");
-        printTruthTable(and);
-        System.out.println("\n");
-        printTruthTable(or);
+        System.out.println(out.getFunctionString());
 
     }
 

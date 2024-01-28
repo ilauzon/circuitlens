@@ -1,13 +1,20 @@
 package com.circuitlens.app;
 
+/**
+ * The template for a logical gate. A gate is defined to have a single output and can have any
+ * amount of inputs.
+ */
 public abstract class Gate {
-    protected Gate[] inputs;
+    protected Gate[] inputs = new Gate[0];
 
     public static final int MAX_INPUTS = 31;
 
-    protected int maxInputs;
+    protected String functionString = "";
 
-    protected boolean[] truthTable;
+    protected int maxInputs;
+    protected int minInputs;
+
+    protected boolean[] truthTable = new boolean[0];
 
     public void calculateTruthTable() {
         if (inputs.length > maxInputs) {
@@ -52,9 +59,7 @@ public abstract class Gate {
     }
 
     public int addInput(Gate gate) {
-        if (inputs == null) {
-            inputs = new Gate[0];
-        }
+
         if (inputs.length + 1 > maxInputs) {
             throw new IllegalArgumentException("More inputs than max inputs");
         }
@@ -63,18 +68,29 @@ public abstract class Gate {
         temp[temp.length - 1] = gate;
         inputs = temp;
 
-        calculateTruthTable();
-
         return temp.length - 1;
     }
 
     public void removeInput(int pos) {
+        if (pos > inputs.length - 1) {
+            throw new IllegalArgumentException("position greater than number of inputs");
+        }
         System.arraycopy(inputs, pos + 1, inputs, pos, inputs.length - pos);
-
-        calculateTruthTable();
+        checkInputAmount();
     }
 
     public Gate[] getInputs() {
         return inputs;
+    }
+
+    protected void checkInputAmount() throws IllegalArgumentException {
+        if (inputs.length < minInputs || inputs.length > maxInputs) {
+            throw new IllegalArgumentException("Incorrect number of gates provided, " +  inputs.length
+                    + " gates provided outside range " + minInputs + " to " + maxInputs);
+        }
+    }
+
+    public String getFunctionString() {
+        return functionString;
     }
 }
