@@ -14,12 +14,31 @@ public class OutputReader extends Gate {
         functionString = traceOutputFormula(inputs[0]);
     }
 
+    /**
+     * Recursive method that interprets an n-ary tree of gates as a boolean expression.
+     * @param gate
+     * @return
+     */
     public String traceOutputFormula(Gate gate) {
         String temp;
 
+        if (gate instanceof Not) {
+            temp = wrap(gate.functionString + traceOutputFormula(gate.inputs[0]));
+        } else if (gate instanceof Variable){
+            temp = gate.functionString;
+        } else {
+            temp = "(" + traceOutputFormula(gate.inputs[0]);
+
+            for (int inputNum = 1; inputNum < gate.inputs.length; inputNum++) {
+                temp += gate.functionString;
+                temp += traceOutputFormula(gate.inputs[inputNum]);
+            }
+            temp += ")";
+        }
+
         // if it is a NOT gate
         if (gate.inputs.length == 1) {
-            temp = wrap(gate.functionString + traceOutputFormula(gate.inputs[0]));
+
         }
         // if it is an AND or OR gate
         else if (gate.inputs.length == 2) {
