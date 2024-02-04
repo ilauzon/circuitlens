@@ -12,23 +12,38 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Gate A = new Variable("A");
-        Gate B = new Variable("B");
-        Gate g0 = new And(A, B);
-        Gate g1 = new Or(g0, g0);
-        Gate g2 = new Not(g1);
-        Gate out = new OutputReader(g2);
+        Gate A = new Variable();
+        Gate B = new Variable();
+        Gate C = new Variable();
 
-        System.out.println(out.getFunctionString());
+        Gate and = new And(B, C);
+        Gate or = new Or(A, and);
+
+        OutputReader out = new OutputReader(or);
+        printTruthTable(out);
 
     }
 
-    private static void printTruthTable(Gate gate) {
-        boolean[] vals = gate.getTruthTable();
-        System.out.println("In\tOut");
-        for (int i = 0; i < vals.length; i++) {
+    private static void printTruthTable(OutputReader out) {
+        boolean[] vals = out.getTruthTable();
 
-            System.out.println(Integer.toBinaryString(i) + "\t" + vals[i]);
+        for (int i = out.varsCount() - 1; i >= 0; i--) {
+            System.out.print((char) (i + 65) + "\t");
+        }
+        System.out.println(out.getFunctionString());
+
+        for (int i = 0; i < vals.length; i++) {
+            String binaryString = Integer.toBinaryString(i);
+
+            // pad with leading zeroes
+            while (binaryString.length() < out.varsCount()) {
+                binaryString = '0' + binaryString;
+            }
+
+            for (char c : binaryString.toCharArray()) {
+                System.out.print(c + "\t");
+            }
+            System.out.println(vals[i]);
         }
     }
 }

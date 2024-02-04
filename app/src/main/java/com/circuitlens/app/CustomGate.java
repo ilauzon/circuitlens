@@ -36,10 +36,6 @@ public class CustomGate extends Gate {
         return temp.length - 1;
     }
 
-    @Override
-    protected boolean calculateBool(boolean[] bits) {
-        return false;
-    }
 
     private Gate findEndGate(Gate[] gates) {
         HashMap<Gate, Integer> gatesWithOutputs = new HashMap<>();

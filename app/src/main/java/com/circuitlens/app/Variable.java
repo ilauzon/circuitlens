@@ -2,15 +2,17 @@ package com.circuitlens.app;
 
 
 public class Variable extends Gate {
+    private static int existingVariables = 0;
 
-    public Variable(String functionString) {
-        this.functionString = functionString;
+    public Variable() {
+        functionString = Character.toString((char) (65 + existingVariables));
+        existingVariables++;
 
         maxInputs = 0;
         minInputs = 0;
     }
-    @Override
-    protected boolean calculateBool(boolean[] bits) {
-        return false;
+
+    public static int getExistingVariables() {
+        return existingVariables;
     }
 }

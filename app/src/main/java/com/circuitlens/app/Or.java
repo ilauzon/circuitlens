@@ -14,11 +14,11 @@ public class Or extends Gate {
         checkInputAmount();
     }
 
-    protected boolean calculateBool(boolean[] bits) {
-
-        for (boolean bit : bits) {
-            if (bit) return true;
-        }
-        return false;
-    }
+//    protected boolean calculateBool(boolean[] bits) {
+//
+//        for (boolean bit : bits) {
+//            if (bit) return true;
+//        }
+//        return false;
+//    }
 }
