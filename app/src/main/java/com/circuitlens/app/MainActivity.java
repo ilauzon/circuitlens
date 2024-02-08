@@ -15,9 +15,10 @@ public class MainActivity extends AppCompatActivity {
         Gate A = new Variable();
         Gate B = new Variable();
         Gate C = new Variable();
+        Gate D = new Variable();
 
-        Gate and = new And(B, C);
-        Gate or = new Or(A, and);
+        Gate and = new And(A, B);
+        Gate or = new Or(C, and);
 
         OutputReader out = new OutputReader(or);
         printTruthTable(out);
@@ -27,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private static void printTruthTable(OutputReader out) {
         boolean[] vals = out.getTruthTable();
 
-        for (int i = out.varsCount() - 1; i >= 0; i--) {
-            System.out.print((char) (i + 65) + "\t");
+        for (int i = out.getVarArray().length - 1; i >= 0; i--) {
+            System.out.print(out.getVarChar(i) + "\t");
         }
         System.out.println(out.getFunctionString());
 
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             String binaryString = Integer.toBinaryString(i);
 
             // pad with leading zeroes
-            while (binaryString.length() < out.varsCount()) {
+            while (binaryString.length() < out.getVarArray().length) {
                 binaryString = '0' + binaryString;
             }
 
