@@ -58,8 +58,13 @@ public class OutputReader extends Gate {
             return;
         }
 
-        initVars(root.left);
-        initVars(root.right);
+        if (root.left != null) {
+            initVars(root.left);
+        }
+
+        if (root.right != null) {
+            initVars(root.right);
+        }
     }
 
     /**
@@ -76,13 +81,6 @@ public class OutputReader extends Gate {
         } else { //root.value is a LogicalOperator
             return ((LogicalOperator) (root.value)).getFunction().apply(calculateBool(bits, root.left), calculateBool(bits, root.right));
         }
-    }
-
-    public boolean getValue(int row) {
-        if (truthTable == null) {
-            calculateTruthTable();
-        }
-        return truthTable[row];
     }
 
     public boolean[] getTruthTable() {

@@ -18,10 +18,11 @@ public class MainActivity extends AppCompatActivity {
 
         Gate and = new And(A, B);
         Gate or = new Or(C, and);
+        Gate not = new Not(or);
 
-        or.functionTree.printTree(0);
+        not.functionTree.printTree(0);
 
-        OutputReader out = new OutputReader(or);
+        OutputReader out = new OutputReader(not);
         printTruthTable(out);
 
     }

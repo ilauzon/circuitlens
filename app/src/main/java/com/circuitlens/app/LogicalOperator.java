@@ -28,7 +28,7 @@ public enum LogicalOperator {
     NOT () {
         @Override
         public BiFunction<Boolean, Boolean, Boolean> getFunction() {
-            return (Boolean a, Boolean b) -> !a;
+            return (Boolean a, Boolean b) -> !b;
         }
 
         @Override

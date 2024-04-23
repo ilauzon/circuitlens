@@ -13,7 +13,7 @@ public class Not extends Gate {
         checkInputAmount();
 
         functionTree = new BoolNode(LogicalOperator.NOT);
-        functionTree.left = inputs[0].functionTree;
-        functionTree.right = new BoolNode(false);
+        functionTree.right = inputs[0].functionTree;
+        functionTree.left = new BoolNode<>(false);
     }
 }

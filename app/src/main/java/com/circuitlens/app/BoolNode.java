@@ -20,8 +20,10 @@ public class BoolNode<T> {
     public String toString() {
         String result = "(";
 
-        if (left != null) {
-            result += left.toString();
+        if (left != null) { // special case for NOT, a unary operator
+            if (value != LogicalOperator.NOT) {
+                result += left.toString();
+            }
         }
 
         result += value;
@@ -35,7 +37,12 @@ public class BoolNode<T> {
 
     public void printTree(int spaces) {
         if (left != null) {
-            left.printTree(spaces + 4);
+            if (value == LogicalOperator.NOT) { //special case for NOT, since it is a unary operator
+                System.out.print("\n");
+            } else {
+                left.printTree(spaces + 4);
+            }
+
         }
 
         for (int i = 0; i < spaces; i++) {
